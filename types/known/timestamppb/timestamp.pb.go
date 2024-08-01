@@ -190,6 +190,11 @@ func (t Timestamp) MarshalJSON() ([]byte, error) {
 	return []byte(data), nil
 }
 
+func (t Timestamp) MarshalYAML() (interface{}, error) {
+	data := t.AsTime().Format("2006-01-02 15:04:05")
+	return data, nil
+}
+
 // Now constructs a new Timestamp from the current time.
 func Now() *Timestamp {
 	return New(time.Now())
