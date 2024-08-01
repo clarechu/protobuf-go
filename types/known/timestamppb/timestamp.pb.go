@@ -185,11 +185,6 @@ type Timestamp struct {
 	Nanos int32 `protobuf:"varint,2,opt,name=nanos,proto3" json:"nanos,omitempty"`
 }
 
-func (t Timestamp) MarshalJSON() ([]byte, error) {
-	data := t.AsTime().Format("2006-01-02 15:04:05")
-	return []byte(data), nil
-}
-
 func (t Timestamp) MarshalYAML() (interface{}, error) {
 	data := t.AsTime().Format("2006-01-02 15:04:05")
 	return data, nil
