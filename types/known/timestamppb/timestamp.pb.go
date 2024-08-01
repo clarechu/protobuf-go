@@ -185,6 +185,11 @@ type Timestamp struct {
 	Nanos int32 `protobuf:"varint,2,opt,name=nanos,proto3" json:"nanos,omitempty"`
 }
 
+func (t Timestamp) MarshalJSON() ([]byte, error) {
+	data := t.AsTime().Format("2006-01-02 15:04:05")
+	return []byte(data), nil
+}
+
 // Now constructs a new Timestamp from the current time.
 func Now() *Timestamp {
 	return New(time.Now())
@@ -197,7 +202,7 @@ func New(t time.Time) *Timestamp {
 
 // AsTime converts x to a time.Time.
 func (x *Timestamp) AsTime() time.Time {
-	return time.Unix(int64(x.GetSeconds()), int64(x.GetNanos())).UTC()
+	return time.Unix(int64(x.GetSeconds()), int64(x.GetNanos()))
 }
 
 // IsValid reports whether the timestamp is valid.
